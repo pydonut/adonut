@@ -62,9 +62,15 @@
         <!-- 이전페이지 -->
         {% if question_list.has_previous %}
         <li class="page-item">
+            <a class="page-link" data-page="1" href="#">처음</a>
+        </li>
+        <li class="page-item">
             <a class="page-link" data-page="{{ question_list.previous_page_number }}" href="#">이전</a>
         </li>
         {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">처음</a>
+        </li>
         <li class="page-item disabled">
             <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
         </li>
@@ -88,9 +94,15 @@
         <li class="page-item">
             <a class="page-link" data-page="{{ question_list.next_page_number }}" href="#">다음</a>
         </li>
+        <li class="page-item">
+            <a class="page-link" data-page="{{ last_page }}" href="#">마지막</a>
+        </li>
         {% else %}
         <li class="page-item disabled">
             <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">마지막</a>
         </li>
         {% endif %}
     </ul>

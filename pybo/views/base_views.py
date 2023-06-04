@@ -34,8 +34,9 @@ def index(request):
     # 페이징처리
     paginator = Paginator(question_list, 10)  # 페이지당 10개씩 보여주기
     page_obj = paginator.get_page(page)
-
-    context = {'question_list': page_obj, 'page': page, 'kw': kw, 'so': so}  # <------ so 추가
+    # 마지막 페이지 번호 계산
+    last_page = paginator.count // 10 + 1 if (paginator.count % 10) else paginator.count // 10
+    context = {'question_list': page_obj, 'page': page, 'kw': kw, 'so': so, 'last_page': last_page}  # <------ so 추가
     return render(request, 'pybo/question_list.html', context)
 
 
