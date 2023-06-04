@@ -2,7 +2,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.shortcuts import render, get_object_or_404
 
-from ..models import Question
+from ..models import Question, Comment
 
 
 def index(request):
@@ -43,6 +43,21 @@ def detail(request, question_id):
     """
     pybo 내용 출력
     """
+    # 입력 파라미터
+    page = request.GET.get('page', '1')  # 페이지
+    so = request.GET.get('so', 'recent')  # 정렬기준
+
     question = get_object_or_404(Question, pk=question_id)
-    context = {'question': question}
+
+    # 정렬
+    if so == 'recommend':
+        comment_list = Comment.objects.filter(question=question).annotate(num_voter=Count('question_comment_voter')).order_by('-num_voter', '-create_date')
+    else:  # recent
+        comment_list = Comment.objects.filter(question=question).order_by('-create_date')
+
+    # 페이징처리
+    paginator = Paginator(comment_list, 3)  # 페이지당 10개씩 보여주기
+    page_obj = paginator.get_page(page)
+
+    context = {'question': question, 'comment_list': page_obj, 'so': so}
     return render(request, 'pybo/question_detail.html', context)
