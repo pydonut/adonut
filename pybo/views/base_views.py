@@ -57,8 +57,9 @@ def detail(request, question_id):
         comment_list = Comment.objects.filter(question=question).order_by('-create_date')
 
     # 페이징처리
-    paginator = Paginator(comment_list, 3)  # 페이지당 10개씩 보여주기
+    paginator = Paginator(comment_list, 3)  # 페이지당 3개씩 보여주기
     page_obj = paginator.get_page(page)
-
-    context = {'question': question, 'comment_list': page_obj, 'so': so}
+    # 마지막 페이지 번호 계산
+    last_page = paginator.count // 3 + 1 if (paginator.count % 3) else paginator.count // 3
+    context = {'question': question, 'comment_list': page_obj, 'so': so, 'last_page': last_page}
     return render(request, 'pybo/question_detail.html', context)
