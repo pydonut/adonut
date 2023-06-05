@@ -34,4 +34,8 @@ urlpatterns = [
     path('vote/answer/<int:answer_id>/', vote_views.vote_answer, name='vote_answer'),
     path('vote/comment/question/<int:comment_id>/', vote_views.vote_question_comment, name='vote_question_comment'),
     path('vote/comment/answer/<int:comment_id>/', vote_views.vote_answer_comment, name='vote_answer_comment'),
+    path('vote/cancel/question/<int:question_id>/', vote_views.cancel_vote_question, name='cancel_vote_question'),
+    path('vote/cancel/answer/<int:answer_id>/', vote_views.cancel_vote_answer, name='cancel_vote_answer'),
+    path('vote/cancel/comment/question/<int:comment_id>/', vote_views.cancel_vote_question_comment, name='cancel_vote_question_comment'),
+    path('vote/cancel/comment/answer/<int:comment_id>/', vote_views.cancel_vote_answer_comment, name='cancel_vote_answer_comment'),
 ]

@@ -17,6 +17,8 @@
             <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{question.voter.count}}</div>
             <a href="#" data-uri="{% url 'pybo:vote_question' question.id  %}"
                class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+            <a href="#" data-uri="{% url 'pybo:cancel_vote_question' question.id  %}"
+               class="cancel btn btn-sm btn-secondary btn-block my-1">취소</a>
         </div>
         <div class="col-11"> <!-- 질문영역 -->
             <div class="card">
@@ -73,7 +75,10 @@
                             <!-- 질문 댓글 추천 start -->
                             <div class="col-1">
                                 <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{comment.question_comment_voter.count}}</div>
-                                <a href="#" data-uri="{% url 'pybo:vote_question_comment' comment.id  %}" class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+                                <a href="#" data-uri="{% url 'pybo:vote_question_comment' comment.id  %}"
+                                   class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+                                <a href="#" data-uri="{% url 'pybo:cancel_vote_question_comment' comment.id  %}"
+                                    class="cancel btn btn-sm btn-secondary btn-block my-1">취소</a>
                             </div>
                             <!-- 질문 댓글 추천 end -->
                         </div>
@@ -147,6 +152,8 @@
             <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{answer.voter.count}}</div>
             <a href="#" data-uri="{% url 'pybo:vote_answer' answer.id  %}"
                 class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+            <a href="#" data-uri="{% url 'pybo:cancel_vote_answer' answer.id  %}"
+                class="cancel btn btn-sm btn-secondary btn-block my-1">취소</a>
         </div>
         <div class="col-11">  <!-- 답변영역 -->
             <div class="card">
@@ -197,7 +204,10 @@
                             <!-- 답변 댓글 추천 start -->
                             <div class="col-1">
                                 <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{comment.answer_comment_voter.count}}</div>
-                                <a href="#" data-uri="{% url 'pybo:vote_answer_comment' comment.id  %}" class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+                                <a href="#" data-uri="{% url 'pybo:vote_answer_comment' comment.id  %}"
+                                   class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
+                                <a href="#" data-uri="{% url 'pybo:cancel_vote_answer_comment' comment.id  %}"
+                                    class="cancel btn btn-sm btn-secondary btn-block my-1">취소</a>
                             </div>
                             <!-- 답변 댓글 추천 end -->
                         </div>
@@ -247,6 +257,11 @@ $(document).ready(function(){
     });
     $(".recommend").on('click', function() {
         if(confirm("정말로 추천하시겠습니까?")) {
+            location.href = $(this).data('uri');
+        }
+    });
+    $(".cancel").on('click', function() {
+        if(confirm("정말로 취소하시겠습니까?")) {
             location.href = $(this).data('uri');
         }
     });
