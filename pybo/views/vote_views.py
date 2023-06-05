@@ -53,3 +53,30 @@ def vote_answer_comment(request, comment_id):
     else:
         comment.answer_comment_voter.add(request.user)
     return redirect('pybo:detail', question_id=comment.answer.question.id)
+
+@login_required(login_url='common:login')
+def cancel_vote_question(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    question.voter.remove(request.user)
+    return redirect('pybo:detail', question_id=question.id)
+
+@login_required(login_url='common:login')
+def cancel_vote_answer(request, answer_id):
+    answer = get_object_or_404(Answer, pk=answer_id)
+    answer.voter.remove(request.user)
+    return redirect('pybo:detail', question_id=answer.question.id)
+
+@login_required(login_url='common:login')
+def cancel_vote_question_comment(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    comment.question_comment_voter.remove(request.user)
+    return redirect('pybo:detail', question_id=comment.question_id)
+
+@login_required(login_url='common:login')
+def cancel_vote_answer_comment(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    answer = get_object_or_404(Answer, pk=comment.answer_id)
+    comment.answer_comment_voter.remove(request.user)
+    return redirect('pybo:detail', question_id=answer.question_id)
+
+
